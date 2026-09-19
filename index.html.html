@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sukanya Porman - Professional Portfolio</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons (Modern Minimalist Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0F2942',    /* Deep Navy */
+                        secondary: '#1A4B77',  /* Corporate Blue */
+                        accent: '#3B82F6',     /* Bright Blue for highlights */
+                        dark: '#111827',       /* Deep Gray */
+                        light: '#F8FAFC',      /* Crisp White/Gray */
+                        borderGray: '#E2E8F0'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #F1F5F9; /* Subtle gray background */
+            overflow-x: hidden;
+        }
+
+        /* Splash Screen Animations */
+        .splash-bg {
+            background: linear-gradient(135deg, #0F2942, #1A4B77);
+            position: relative;
+            overflow: hidden;
+        }
+        .splash-bg::before, .splash-bg::after {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .splash-bg::before {
+            width: 500px; height: 500px;
+            top: -150px; left: -150px;
+            animation: pulse-slow 6s infinite;
+        }
+        .splash-bg::after {
+            width: 400px; height: 400px;
+            bottom: -100px; right: -100px;
+            animation: pulse-slow 4s infinite reverse;
+        }
+
+        @keyframes pulse-slow {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; visibility: visible; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* Section Transitions */
+        .section-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hide Scrollbar for Nav */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid #E2E8F0;
+            border-top: 3px solid #1A4B77;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-bg fixed inset-0 z-[100] flex flex-col items-center justify-center text-white transition-opacity duration-500">
+        <div class="z-10 text-center flex flex-col items-center">
+            <div class="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 shadow-2xl border border-white/20 animate-pulse">
+                <i class="ph ph-briefcase text-4xl text-white"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-wide">Sukanya Porman</h1>
+            <p class="text-lg md:text-xl font-light text-slate-300">Professional Portfolio</p>
+            <div class="mt-8 flex space-x-2">
+                <div class="w-2.5 h-2.5 bg-accent rounded-full animate-[bounce_1s_infinite_100ms]"></div>
+                <div class="w-2.5 h-2.5 bg-accent rounded-full animate-[bounce_1s_infinite_200ms]"></div>
+                <div class="w-2.5 h-2.5 bg-accent rounded-full animate-[bounce_1s_infinite_300ms]"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app-container" class="min-h-screen flex flex-col hidden opacity-0 transition-opacity duration-700 relative">
+        
+        <!-- Hero Section -->
+        <header class="bg-primary text-white pt-20 pb-16 px-6 shadow-lg relative overflow-hidden">
+            <!-- Professional Geometric Background Elements -->
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-secondary transform skew-x-12 translate-x-32 opacity-20"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full border-[20px] border-secondary opacity-20"></div>
+            
+            <div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-10">
+                <!-- Profile Image container prominently displaying unnamed.png -->
+                <div class="w-48 h-48 md:w-56 md:h-56 rounded-2xl shadow-2xl overflow-hidden bg-white flex-shrink-0 border-4 border-slate-200 transform hover:scale-105 transition-transform duration-300">
+                    <img src="unnamed.png" alt="Sukanya Porman Profile" class="w-full h-full object-cover object-top">
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <div class="inline-block px-3 py-1 bg-accent/20 border border-accent/30 text-blue-200 rounded-full text-xs font-bold mb-4 uppercase tracking-widest backdrop-blur-sm">
+                        Professional Profile
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-3 text-white tracking-tight">นางสาวสุกันยา ปอมั่น</h1>
+                    <p class="text-xl text-blue-200 font-medium mb-6">Semiconductor Expert & Management Professional</p>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                        <span class="flex items-center px-4 py-2 bg-white/10 rounded-lg text-sm font-medium border border-white/10 backdrop-blur-md">
+                            <i class="ph ph-cpu mr-2 text-accent text-lg"></i> 20+ Years Experience
+                        </span>
+                        <span class="flex items-center px-4 py-2 bg-white/10 rounded-lg text-sm font-medium border border-white/10 backdrop-blur-md">
+                            <i class="ph ph-users-three mr-2 text-accent text-lg"></i> Event & Social Media Manager
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sticky Navigation -->
+        <nav class="sticky top-0 bg-white shadow-sm border-b border-slate-200 z-40">
+            <div class="max-w-5xl mx-auto px-2 md:px-6">
+                <ul id="nav-menu" class="flex overflow-x-auto no-scrollbar space-x-2 py-3 snap-x">
+                    <li class="snap-start"><button onclick="navigate('education')" class="nav-btn active flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-graduation-cap text-lg mr-2"></i>การศึกษา</button></li>
+                    <li class="snap-start"><button onclick="navigate('portfolio')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-image text-lg mr-2"></i>แฟ้มผลงาน</button></li>
+                    <li class="snap-start"><button onclick="navigate('contact')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-address-book text-lg mr-2"></i>ติดต่อ</button></li>
+                    <li class="snap-start"><button onclick="navigate('highlights')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-star text-lg mr-2"></i>ผลงานเด่น</button></li>
+                    <li class="snap-start"><button onclick="navigate('certificates')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-certificate text-lg mr-2"></i>ประกาศนียบัตร</button></li>
+                    <li class="snap-start"><button onclick="navigate('collaborations')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-handshake text-lg mr-2"></i>ความร่วมมือ</button></li>
+                    <li class="snap-start"><button onclick="navigate('speaker')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-microphone-stage text-lg mr-2"></i>งานวิทยากร</button></li>
+                    <li class="snap-start"><button onclick="navigate('dashboard')" class="nav-btn flex items-center whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-secondary hover:bg-slate-50 transition-all"><i class="ph ph-chart-line-up text-lg mr-2"></i>ภาพรวม</button></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow max-w-5xl mx-auto w-full p-6 relative">
+            
+            <!-- Loading Overlay -->
+            <div id="loading-overlay" class="absolute inset-0 bg-slate-50/80 backdrop-blur-sm z-30 flex items-center justify-center hidden rounded-2xl">
+                <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                    <div class="loader mb-4"></div>
+                    <p class="text-secondary font-semibold text-sm">กำลังโหลดข้อมูล...</p>
+                </div>
+            </div>
+
+            <!-- 1. ประวัติการศึกษา (Education) -->
+            <section id="section-education" class="content-section">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-graduation-cap text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ประวัติการศึกษา</h2>
+                    </div>
+                    
+                    <div class="relative border-l-2 border-slate-200 ml-5 space-y-10">
+                        <!-- Item 1 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-accent ring-4 ring-white"></div>
+                            <span class="inline-block px-3 py-1 bg-blue-50 text-accent border border-blue-100 rounded text-xs font-bold mb-2 tracking-wide">คาดว่าจะสำเร็จการศึกษา 2571</span>
+                            <h3 class="text-xl font-bold text-slate-800">ปริญญาโท (MBA)</h3>
+                            <p class="text-slate-500 mt-1 flex items-center"><i class="ph ph-buildings mr-2"></i>มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ (KMUTNB)</p>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 ring-4 ring-white"></div>
+                            <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded text-xs font-bold mb-2 tracking-wide">ปี 2558</span>
+                            <h3 class="text-xl font-bold text-slate-800">ปริญญาตรี (BBA)</h3>
+                            <p class="text-slate-500 mt-1 flex items-center"><i class="ph ph-buildings mr-2"></i>มหาวิทยาลัยศรีปทุม (Sripatum University)</p>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-300 ring-4 ring-white"></div>
+                            <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded text-xs font-bold mb-2 tracking-wide">ปี 2550</span>
+                            <h3 class="text-xl font-bold text-slate-800">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</h3>
+                            <p class="text-slate-500 mt-1 flex items-center"><i class="ph ph-buildings mr-2"></i>วิทยาลัยเทคโนโลยีหมู่บ้านครู (High Voc. Phetkasem)</p>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-200 ring-4 ring-white"></div>
+                            <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded text-xs font-bold mb-2 tracking-wide">ปี 2545</span>
+                            <h3 class="text-xl font-bold text-slate-800">มัธยมศึกษาตอนปลาย</h3>
+                            <p class="text-slate-500 mt-1 flex items-center"><i class="ph ph-buildings mr-2"></i>โรงเรียนชัยบาดาลวิทยา (High School Chaibadan)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. สถานที่ติดต่อ (Contact) -->
+            <section id="section-contact" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-address-book text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ข้อมูลการติดต่อ</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Location -->
+                        <div class="bg-slate-50 rounded-lg p-6 border border-slate-100 flex flex-col items-center text-center hover:border-slate-300 transition-colors">
+                            <div class="w-12 h-12 bg-white rounded-full border border-slate-200 flex items-center justify-center mb-4 text-secondary">
+                                <i class="ph ph-map-pin text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 mb-1">ที่อยู่</h3>
+                            <p class="text-slate-600 text-sm">จังหวัดชลบุรี (Chonburi)</p>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="bg-slate-50 rounded-lg p-6 border border-slate-100 flex flex-col items-center text-center hover:border-slate-300 transition-colors">
+                            <div class="w-12 h-12 bg-white rounded-full border border-slate-200 flex items-center justify-center mb-4 text-secondary">
+                                <i class="ph ph-phone text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 mb-1">เบอร์โทรศัพท์</h3>
+                            <a href="tel:0972582293" class="text-accent hover:text-secondary font-medium transition-colors text-sm">097-258-2293</a>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="bg-slate-50 rounded-lg p-6 border border-slate-100 flex flex-col items-center text-center hover:border-slate-300 transition-colors">
+                            <div class="w-12 h-12 bg-white rounded-full border border-slate-200 flex items-center justify-center mb-4 text-secondary">
+                                <i class="ph ph-envelope-simple text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 mb-1">อีเมล</h3>
+                            <a href="mailto:Sukanya.Porman@analog.com" class="text-accent hover:text-secondary font-medium transition-colors text-sm break-all">Sukanya.Porman@analog.com</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. ผลงานโดดเด่น (Highlights) -->
+            <section id="section-highlights" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-star text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ความเชี่ยวชาญและผลงานโดดเด่น</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                            <div class="absolute -right-6 -top-6 w-24 h-24 bg-slate-50 rounded-full group-hover:scale-150 transition-transform duration-700 ease-in-out z-0"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-4">
+                                    <i class="ph ph-cpu text-3xl text-secondary mr-3"></i>
+                                    <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded text-xs font-bold border border-slate-200">Industry Expert</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-2">ประสบการณ์กว่า 20+ ปี</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    มีความเชี่ยวชาญและประสบการณ์การทำงานในอุตสาหกรรม Semiconductor อย่างยาวนาน เข้าใจกระบวนการ เทคโนโลยี และมาตรฐานในระดับสากลอย่างลึกซึ้ง
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                            <div class="absolute -right-6 -top-6 w-24 h-24 bg-slate-50 rounded-full group-hover:scale-150 transition-transform duration-700 ease-in-out z-0"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-4">
+                                    <i class="ph ph-calendar-check text-3xl text-secondary mr-3"></i>
+                                    <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded text-xs font-bold border border-slate-200">Management</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-2">บริหารจัดการกิจกรรมองค์กร</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    เชี่ยวชาญการบริหารการเดินทางและจัดการกิจกรรม (Travel & Event Management) ระดับองค์กร มุ่งเน้นประสิทธิภาพ ความราบรื่น และสร้างความพึงพอใจสูงสุด
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 (Spans Full Width) -->
+                        <div class="lg:col-span-2 bg-slate-50 p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-grow">
+                                <div class="flex items-center mb-4">
+                                    <i class="ph ph-share-network text-3xl text-accent mr-3"></i>
+                                    <span class="px-2.5 py-1 bg-white text-secondary rounded text-xs font-bold border border-slate-200 shadow-sm">Digital Content</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-3">ผู้จัดการโซเชียลมีเดีย (Social Media Manager)</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                    บริหารจัดการแพลตฟอร์มสื่อสังคมออนไลน์ สร้างสรรค์คอนเทนต์เชิงกลยุทธ์ และสร้างการมีส่วนร่วมกับผู้ติดตามได้อย่างมีประสิทธิภาพ นำไปสู่การเติบโตของช่องทางอย่างต่อเนื่อง
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex items-center bg-white px-5 py-3 rounded-lg border border-slate-200 shadow-sm">
+                                        <i class="ph-fill ph-facebook-logo text-blue-600 text-3xl mr-3"></i>
+                                        <div>
+                                            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Facebook Page</div>
+                                            <div class="font-black text-slate-800 text-lg">14K+ Followers</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center bg-white px-5 py-3 rounded-lg border border-slate-200 shadow-sm">
+                                        <i class="ph-fill ph-tiktok-logo text-slate-900 text-3xl mr-3"></i>
+                                        <div>
+                                            <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">TikTok Channel</div>
+                                            <div class="font-black text-slate-800 text-lg">19K+ Followers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio (Gallery) Section -->
+            <section id="section-portfolio" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-image text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">แฟ้มสะสมผลงาน (Portfolio / Gallery)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Portfolio Item 1 (Image Provided) -->
+                        <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="aspect-square bg-slate-100 overflow-hidden relative">
+                                <img src="unnamed_2.png" alt="Portfolio Highlight" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-5 bg-white">
+                                <h3 class="font-bold text-slate-800 text-base mb-1">ภาพลักษณ์องค์กรแบบมืออาชีพ</h3>
+                                <p class="text-xs text-slate-500 font-medium">Professional Corporate Presentation</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Item 2 (Image Provided) -->
+                        <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="aspect-square bg-slate-100 overflow-hidden relative">
+                                <img src="unnamed_3.png" alt="Corporate Event Management" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-5 bg-white">
+                                <h3 class="font-bold text-slate-800 text-base mb-1">กิจกรรมและสัมมนา</h3>
+                                <p class="text-xs text-slate-500 font-medium">Corporate Event Management</p>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 3 (Placeholder) -->
+                        <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="aspect-square bg-slate-50 overflow-hidden relative flex items-center justify-center">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-slate-100 to-slate-50"></div>
+                                <i class="ph ph-presentation-chart text-5xl text-slate-300 relative z-10 group-hover:scale-110 transition-transform duration-500"></i>
+                            </div>
+                            <div class="p-5 bg-white">
+                                <h3 class="font-bold text-slate-800 text-base mb-1">ผลงานด้านสื่อประชาสัมพันธ์</h3>
+                                <p class="text-xs text-slate-500 font-medium">Social Media & PR Campaigns</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. ผลงานวิชาการ (Academic/Certificates) -->
+            <section id="section-certificates" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-certificate text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ผลงานวิชาการและประกาศนียบัตร</h2>
+                    </div>
+                    
+                    <div class="overflow-x-auto rounded-lg border border-slate-200">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider w-16">ลำดับ</th>
+                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">ชื่อหลักสูตร / ประกาศนียบัตร</th>
+                                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">หมวดหมู่ทักษะ</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-200">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">1</td>
+                                    <td class="px-6 py-4 text-sm text-slate-800 font-medium">ADTH Mentor Program</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded text-xs font-semibold">Mentorship & Leadership</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">2</td>
+                                    <td class="px-6 py-4 text-sm text-slate-800 font-medium">Logical Thinking (DD Co.)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2.5 py-1 bg-sky-50 text-sky-700 border border-sky-100 rounded text-xs font-semibold">Problem Solving</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">3</td>
+                                    <td class="px-6 py-4 text-sm text-slate-800 font-medium">Analytical Thinking & Strategy</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 rounded text-xs font-semibold">Cognitive Skills</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">4</td>
+                                    <td class="px-6 py-4 text-sm text-slate-800 font-medium">Star Achievement Recognition</td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-100 rounded text-xs font-semibold">Professional Excellence</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. ผลงานบทความวิจัย/ความร่วมมือ -->
+            <section id="section-collaborations" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-handshake text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">บทความวิจัยและความร่วมมือ (MOU)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+                            <div class="h-40 bg-slate-100 relative overflow-hidden flex items-center justify-center">
+                                <i class="ph ph-buildings text-6xl text-slate-300 group-hover:scale-110 transition-transform duration-500"></i>
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                            </div>
+                            <div class="p-6 flex-grow bg-white">
+                                <span class="text-[10px] font-bold text-secondary mb-2 block uppercase tracking-wider">Academic Partnership</span>
+                                <h3 class="text-lg font-bold text-slate-800 mb-2">MOU & University Partnerships</h3>
+                                <p class="text-slate-600 text-sm">เป็นตัวแทนองค์กรในการสร้างความร่วมมือทางวิชาการและวิชาชีพผ่านการทำบันทึกข้อตกลง (MOU) ร่วมกับสถาบันการศึกษาชั้นนำ เพื่อพัฒนาหลักสูตรและบุคลากร</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+                            <div class="h-40 bg-slate-50 flex items-center justify-center relative overflow-hidden">
+                                <i class="ph ph-article text-6xl text-slate-200 group-hover:scale-110 transition-transform duration-500"></i>
+                            </div>
+                            <div class="p-6 flex-grow bg-white">
+                                <span class="text-[10px] font-bold text-slate-500 mb-2 block uppercase tracking-wider">Research Publications</span>
+                                <h3 class="text-lg font-bold text-slate-800 mb-2">ผลงานวิชาการและบทความ</h3>
+                                <p class="text-slate-600 text-sm">เอกสารและบทความวิจัยที่เกี่ยวข้องกับการพัฒนาอุตสาหกรรมและการจัดการองค์กร (กำลังดำเนินการและเตรียมการเผยแพร่)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. งานวิทยากร (Speaker) -->
+            <section id="section-speaker" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-microphone-stage text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ประสบการณ์วิทยากรและที่ปรึกษา</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 1 -->
+                        <div class="p-6 rounded-lg border border-slate-200 bg-white hover:border-secondary/30 hover:shadow-sm transition-all group">
+                            <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mb-4 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                <i class="ph ph-users-four text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">Mentoring Students & Interns</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">รับหน้าที่เป็นพี่เลี้ยง (Mentor) ให้คำปรึกษาและคำแนะนำแก่นักศึกษาฝึกงานในการเตรียมความพร้อมสู่การทำงานจริง ถ่ายทอดวิสัยทัศน์และประสบการณ์ตรงจากภาคอุตสาหกรรม</p>
+                            <span class="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 rounded text-xs font-semibold">#Mentorship #CareerGuidance</span>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="p-6 rounded-lg border border-slate-200 bg-white hover:border-secondary/30 hover:shadow-sm transition-all group">
+                            <div class="w-12 h-12 bg-sky-50 rounded-lg flex items-center justify-center mb-4 text-sky-600 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                                <i class="ph ph-presentation-chart text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">Guest Lecturer (High Schools)</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">ได้รับเชิญเป็นวิทยากรบรรยายพิเศษ เพื่อให้ความรู้ สร้างแรงบันดาลใจ และแนะแนวการศึกษาต่อรวมถึงเส้นทางอาชีพในอุตสาหกรรมเทคโนโลยีแก่นักเรียนระดับมัธยมศึกษาตอนปลาย</p>
+                            <span class="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 rounded text-xs font-semibold">#Education #Inspiration</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Dashboard -->
+            <section id="section-dashboard" class="content-section hidden">
+                <div class="bg-white rounded-xl shadow-sm p-8 border border-slate-200">
+                    <div class="flex items-center mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
+                            <i class="ph ph-chart-line-up text-2xl text-secondary"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-dark">ภาพรวมสถิติและผลงาน (Dashboard)</h2>
+                    </div>
+                    
+                    <!-- KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute right-[-10px] top-[-10px] opacity-5">
+                                <i class="ph-fill ph-briefcase text-8xl"></i>
+                            </div>
+                            <div class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">Experience</div>
+                            <div class="text-primary text-4xl font-black mb-1">20+ <span class="text-lg text-slate-400 font-medium">ปี</span></div>
+                            <div class="text-sm text-slate-600">ในอุตสาหกรรม Semiconductor</div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute right-[-10px] top-[-10px] opacity-5">
+                                <i class="ph-fill ph-users text-8xl"></i>
+                            </div>
+                            <div class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">FB Community</div>
+                            <div class="text-secondary text-4xl font-black mb-1">14K+</div>
+                            <div class="text-sm text-slate-600">ผู้ติดตามแพลตฟอร์ม Facebook</div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute right-[-10px] top-[-10px] opacity-5">
+                                <i class="ph-fill ph-trend-up text-8xl"></i>
+                            </div>
+                            <div class="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">TikTok Reach</div>
+                            <div class="text-accent text-4xl font-black mb-1">19K+</div>
+                            <div class="text-sm text-slate-600">ผู้ติดตามแพลตฟอร์ม TikTok</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="w-full bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="h-72 md:h-96 w-full relative">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-slate-200 text-slate-500 py-8 text-center mt-auto">
+            <div class="w-full px-4 max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center">
+                <p class="font-medium text-sm mb-2 md:mb-0">
+                    Professional Portfolio &copy; <span id="year"></span> | <span class="font-bold text-secondary">Sukanya Porman</span>
+                </p>
+                <div class="flex space-x-4 text-xl">
+                    <a href="#" class="hover:text-secondary transition-colors"><i class="ph-fill ph-linkedin-logo"></i></a>
+                    <a href="#" class="hover:text-secondary transition-colors"><i class="ph-fill ph-envelope-simple"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Chart.js instance holder
+        let dashboardChart = null;
+
+        // Initialization on window load for splash screen logic
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            const app = document.getElementById('app-container');
+            
+            // Allow splash screen to show for a brief moment for premium feel
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+                
+                // Wait for fade out animation to finish
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    app.classList.remove('hidden');
+                    
+                    // Trigger opacity transition
+                    requestAnimationFrame(() => {
+                        app.classList.remove('opacity-0');
+                    });
+                }, 500);
+            }, 1800);
+        });
+
+        // Main Navigation Function
+        function navigate(sectionId) {
+            const overlay = document.getElementById('loading-overlay');
+            const sections = document.querySelectorAll('.content-section');
+            const navButtons = document.querySelectorAll('.nav-btn');
+            
+            // Reset nav buttons styling
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-secondary', 'bg-slate-50');
+                btn.classList.add('text-slate-500');
+            });
+            
+            // Highlight active button
+            event.currentTarget.classList.remove('text-slate-500');
+            event.currentTarget.classList.add('text-secondary', 'bg-slate-50');
+
+            // Show UI loading state
+            overlay.classList.remove('hidden');
+
+            // Hide all current sections
+            sections.forEach(sec => {
+                sec.classList.add('hidden');
+                sec.classList.remove('section-fade-in');
+            });
+
+            // Simulate slight delay for fetching/rendering data
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                
+                // Reveal requested section
+                const target = document.getElementById(`section-${sectionId}`);
+                if(target) {
+                    target.classList.remove('hidden');
+                    target.classList.add('section-fade-in');
+                }
+
+                // Render or update chart if Dashboard is opened
+                if (sectionId === 'dashboard') {
+                    initChart();
+                }
+            }, 400); 
+        }
+
+        // Render Chart.js with professional corporate color palette
+        function initChart() {
+            const ctx = document.getElementById('skillsChart');
+            
+            // Prevent duplicate chart instances overlapping
+            if (dashboardChart) {
+                dashboardChart.destroy();
+            }
+
+            // Using the professional color palette defined in Tailwind config
+            const colors = {
+                primary: '#0F2942',
+                secondary: '#1A4B77',
+                accent: '#3B82F6',
+                gray: '#94A3B8'
+            };
+
+            dashboardChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Semiconductor Exp.', 'Social Media Mgmt', 'Event Organization', 'Mentoring/Coaching', 'Strategic Planning'],
+                    datasets: [{
+                        label: 'ระดับความเชี่ยวชาญ (Scale 1-100)',
+                        data: [95, 85, 90, 80, 85],
+                        backgroundColor: [
+                            colors.primary,
+                            colors.accent,
+                            colors.secondary,
+                            colors.gray,
+                            colors.secondary
+                        ],
+                        borderRadius: 6,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Core Competencies Assessment',
+                            font: {
+                                family: 'Sarabun',
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            color: '#1E293B',
+                            padding: {
+                                bottom: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0F2942',
+                            titleFont: { family: 'Sarabun' },
+                            bodyFont: { family: 'Sarabun' },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: '#E2E8F0',
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                font: { family: 'Sarabun' },
+                                color: '#64748B'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: { family: 'Sarabun', weight: '500' },
+                                color: '#475569'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
